@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="stopwatch.css">
+</head>
+<body>
+    <div id="main">
+        <p id="text">0:00:0</p>
+       
+        <div class="button">
+            <button class="start">Start</button>
+            <button class="reset">reset</button>
+            <button class="stop">stop</button>
+            <button class="get">get</button>
+            <button class="clear">clear</button></div>
+           
+            <div id="tlist"></div>
+    </div>
+   
+</body>
+<script>
+    var text1 = document.getElementById('text');
+    var start = document.querySelector('.start');
+    var reset =document.querySelector('.reset');
+    var stop = document.querySelector('.stop');
+    var get = document.querySelector('.get');
+    var clear = document.querySelector('.clear')
+    // var count = 0 ;
+    var a ;
+    var tlist = document.getElementById("tlist");
+
+    var minutes = 0, seconds = 0, milliseconds = 0, interval;
+
+var starttime = () => {
+    interval = setInterval(() => {
+        milliseconds += 10;
+        if (milliseconds >= 1000) {
+            milliseconds = 0;
+            seconds++;
+            if (seconds >= 60) {
+                seconds = 0;
+                minutes++;
+            }
+        }
+        text1.innerText = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}:${milliseconds < 10 ? '0' + milliseconds : milliseconds}`;
+    }, 10);
+};
+
+
+var resettime = ()=> {
+clearInterval(interval);
+// count = 0 ;
+minutes = 0;
+ seconds = 0; milliseconds = 0;
+text1.innerText = 0;
+};
+
+
+var stoptime = ()=> {
+clearInterval(interval);
+
+};
+var gettime = () => {
+const newc = document.createElement("p");
+newc.innerText= `record is => ${minutes}: ${seconds}: ${milliseconds}`;
+tlist.appendChild(newc);
+
+}
+var cleartime = ()=> {
+    tlist.innerHTML= "";
+};
+
+
+
+
+
+    start.addEventListener("click" , starttime)
+    reset.addEventListener("click" , resettime)
+    get.addEventListener("click" , gettime)
+    clear.addEventListener("click" , cleartime)
+    stop.addEventListener("click" , stoptime)
+    
+</script>
+</html>
